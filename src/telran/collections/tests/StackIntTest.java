@@ -58,7 +58,7 @@ class StackIntTest {
 		for(int  i = 4; i>0;i--) {
 			stackNotEmpty.pop();// remove all obj in stack until max number/ now max number must change
 		}
-		assertTrue(15==stackNotEmpty.getMaxNumber());
+		assertTrue(4==stackNotEmpty.getMaxNumber());
 		assertThrows(NoSuchElementException.class, ()-> stack.getMaxNumber());
 
 	}

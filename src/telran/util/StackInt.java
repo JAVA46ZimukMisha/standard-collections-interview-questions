@@ -7,16 +7,13 @@ public class StackInt {
 		Integer obj;
 		Integer max;
 		Node prev;
-
 		Node(Integer obj) {
 			this.obj = obj;
 		}
 	}
-
-	private Node head;
 	private Node tail;
 public int pop() {
-	if(head == null) {
+	if(tail == null) {
 		throw new NoSuchElementException();	
 	}else {
 		int res = tail.obj;
@@ -26,9 +23,9 @@ public int pop() {
 }
 public void push(int number) {
 	Node newNode = new Node(number);
-	if (head == null) {
+	if (tail == null) {
 		newNode.max = number;
-		head = tail = newNode;
+		tail = newNode;
 	} else {
 		newNode.max = number>tail.max ? number : tail.max;
 		newNode.prev = tail;
@@ -36,10 +33,10 @@ public void push(int number) {
 	}
 }
 public boolean isEmpty() {
-	return head != null;
+	return tail == null;
 }
 public int getMaxNumber() {
-	if(head == null) {
+	if(tail == null) {
 		throw new NoSuchElementException();	
 	}
 	return tail.max;
