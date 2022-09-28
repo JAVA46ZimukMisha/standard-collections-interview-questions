@@ -8,10 +8,10 @@ import java.util.*;
 class ListTests {
 	Integer[] numbers = {1,2,3,4,5,6,7,8,9,10};
 	List<Integer> list = Arrays.asList(numbers);
-	List<Integer> listMutable;
+	ArrayList<Integer> listMutable;
 	@BeforeEach
 	void setUp () {
-		listMutable = new LinkedList<>(list);
+		listMutable = new ArrayList<>(list);
 	}
 	@Test
 	void listImmutableMutableTest() {
@@ -64,6 +64,20 @@ class ListTests {
 		assertTrue(listMutable.contains(7));
 		
 		
+		
+	}
+	@Test
+	void removeRepeatedTest() {
+		listMutable.addAll(Arrays.asList(numbers));
+		removeRepeated(listMutable);
+		assertArrayEquals(numbers, listMutable.toArray(Integer[]::new));
+	}
+	private void removeRepeated(List<Integer> list) {
+		
+		//most optimal way for removing the repeated elements
+		//O[N]
+		final HashSet<Integer> setHelper = new HashSet<>();
+		list.removeIf(n -> !setHelper.add(n));
 		
 	}
 

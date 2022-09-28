@@ -1,51 +1,40 @@
 package telran.util;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class StackInt {
-	private static class Node {
-		Integer obj;
-		Integer max;
-		Node prev;
-		Node(Integer obj) {
-			this.obj = obj;
-		}
-	}
-	private Node tail;
+	private LinkedList<Integer> numbers = new LinkedList<>();
+	private LinkedList<Integer> maxNumbers = new LinkedList<>();
 public int pop() {
-	if(tail == null) {
-		throw new NoSuchElementException();	
-	}else {
-		int res = tail.obj;
-		tail = tail.prev; 
-		return res;
+	//removes last number and returns removed number
+	//throws exception NoSuchElementException for empty stack
+	if (numbers.isEmpty()) {
+		throw new NoSuchElementException();
 	}
+	int res = numbers.removeLast();
+	if (res == maxNumbers.getLast()) {
+		maxNumbers.removeLast();
+	}
+	return res;
 }
 public void push(int number) {
-	Node newNode = new Node(number);
-	if (tail == null) {
-		newNode.max = number;
-		tail = newNode;
-	} else {
-		newNode.max = number>tail.max ? number : tail.max;
-		newNode.prev = tail;
-		tail = newNode;
+	//adds number at end of a stack
+	numbers.add(number);
+	if (maxNumbers.isEmpty() || number >= maxNumbers.getLast()) {
+		maxNumbers.add(number);
 	}
 }
 public boolean isEmpty() {
-	return tail == null;
+	//returns true if a stack is empty
+	return numbers.isEmpty();
 }
 public int getMaxNumber() {
-	if(tail == null) {
-		throw new NoSuchElementException();	
+	//returns maximal number existing in a stack
+	//throws exception NoSuchElementException for empty stack
+	if (maxNumbers.isEmpty()) {
+		throw new NoSuchElementException();
 	}
-	return tail.max;
-}
-/**
- * method for push test
- * @return last object in a stack
- */
-public int getLast() {
-	return tail.obj;
+	return maxNumbers.getLast();
 }
 }
